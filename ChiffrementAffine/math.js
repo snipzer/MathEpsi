@@ -38,19 +38,19 @@ class MathUtil {
       inverseResultat: inverseResultat,
       stringEq: `${reste} = ${modulo} + ${pente} * ${inverseResultat}`
     });
-    if (reste == 0) {
-      eq.shift()
+    if (reste === 0) {
+      eq.shift();
       let finalResult = 1;
       eq.forEach(obj => {
         finalResult = finalResult * obj.inverseResultat
-      })
+      });
       return finalResult + 1;
     }
     return MathUtil.findKey(reste, pente, eq);
   }
 
   static constructInverseEq(inversedKey, affFunction, modulo) {
-    return new AffFunction(inversedKey, MathUtil.getPosOfModulo(affFunction.intercept * -1 * inversedKey, 26));
+    return new AffFunction(inversedKey, MathUtil.getPosOfModulo(affFunction.intercept * -1 * inversedKey, modulo));
   }
 }
 
@@ -92,18 +92,14 @@ class Crypter {
   }
 }
 
-// Test unitaire positif
-// const encrypterSlope = 19;
-// const encrypterIntercept = 8;
-
-const modulo = 26
-const encrypterSlope = 21;
-const encrypterIntercept = 2;
-
-
+const modulo = 26;
+const slope = 21;
+const intercept = 2;
 const originalString = "ICANDOTHIS";
 
-const crypter = new Crypter(encrypterSlope, encrypterIntercept, modulo);
+
+const crypter = new Crypter(slope, intercept, modulo);
+
 
 const crypted = crypter.convert(originalString, crypter.affinneCrypter);
 const decrypted = crypter.convert(crypted, crypter.affinneDecrypter);
@@ -113,7 +109,7 @@ console.log(`Modulo : ${modulo}`);
 console.log(`EncrypterFunction : ${crypter.affinneCrypter.toString()}`);
 console.log(`DecrypterFunction : ${crypter.affinneDecrypter.toString()}`);
 console.log("====================");
-console.log(`Starting to encrypt : ${originalString}`)
+console.log(`Starting to encrypt : ${originalString}`);
 console.log(`Crypted string : ${crypted}`);
 console.log(`Decrypted string : ${decrypted}`);
 console.log("====================");
