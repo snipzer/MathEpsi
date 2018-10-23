@@ -1,0 +1,14 @@
+{
+  "name": "chiffrementaffine",
+  "version": "1.0.0",
+  "description": "",
+  "main": "math.js",
+  "scripts": {
+    "start": "node math.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "readline": "^1.3.0"
+  }
+}
