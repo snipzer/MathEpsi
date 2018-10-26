@@ -9,30 +9,45 @@ class MathUtil {
         return MathUtil.getPosOfModulo(number, modulo);
     }
 
+    static getInfOfModulo(number, modulo) {
+        return number%modulo;
+    }
+
     static modulo(number, modulo) {
         const quotient = Math.trunc(number / modulo);
         const product = Math.trunc(quotient * modulo);
         return number - product;
     }
 
+    // TODO avoir la notion de coefficient devant le modulo en plus de l'inverse du résultat
     static findKey(pente, modulo, eq) {
         eq = eq || [];
-        let resultat = Math.trunc(modulo / pente);
-        let reste = MathUtil.modulo(modulo, pente);
-        let inverseResultat = resultat * -1;
-        eq.unshift({
-            inverseResultat: inverseResultat,
-            stringEq: `${reste} = ${modulo} + ${pente} * ${inverseResultat}`
-        });
-        if (reste === 0) {
-            eq.shift();
-            let finalResult = 1;
-            eq.forEach(obj => {
-                finalResult = finalResult * obj.inverseResultat
+        if(pente === 1 && eq.length === 0) {
+            return pente;
+        } else {
+            let resultat = Math.trunc(modulo / pente);
+            let reste = MathUtil.modulo(modulo, pente);
+            let inverseResultat = resultat * -1;
+            eq.unshift({
+                pente: pente,
+                modulo: modulo,
+                inverseResultat: inverseResultat,
+                stringEq: `${reste} = ${modulo} + ${pente} * ${inverseResultat}`
             });
-            return finalResult + 1;
+            if (reste === 1) {
+                console.log(eq)
+                if(eq.length === 1) {
+                    return eq[0].inverseResultat;
+                } else {
+                    let finalResult = 1;
+                    eq.forEach(obj => {
+                        finalResult = finalResult * obj.inverseResultat
+                    });
+                    return finalResult +1;
+                }
+            }
+            return MathUtil.findKey(reste, pente, eq);
         }
-        return MathUtil.findKey(reste, pente, eq);
     }
 
     static constructInverseEq(inversedKey, affFunction, modulo) {
