@@ -19,34 +19,73 @@ class MathUtil {
         return number - product;
     }
 
-    // TODO avoir la notion de coefficient devant le modulo en plus de l'inverse du résultat
-    static findKey(pente, modulo, eq) {
-        eq = eq || [];
-        if(pente === 1 && eq.length === 0) {
+    static findKey(pente, modulo, ORIGINAL_PENTE, equationArray) {
+        equationArray = equationArray || [];
+        if(pente === 1 && equationArray.length === 0) {
             return pente;
         } else {
             let resultat = Math.trunc(modulo / pente);
             let reste = MathUtil.modulo(modulo, pente);
-            let inverseResultat = resultat * -1;
-            eq.unshift({
+            let inverseReste = resultat * -1;
+            equationArray.unshift({
+                reste: reste,
                 pente: pente,
                 modulo: modulo,
-                inverseResultat: inverseResultat,
-                stringEq: `${reste} = ${modulo} + ${pente} * ${inverseResultat}`
+                inverseReste: inverseReste,
+                stringEq: `${reste} = ${modulo} + ${pente} * ${inverseReste}`
             });
             if (reste === 1) {
-                console.log(eq)
-                if(eq.length === 1) {
-                    return eq[0].inverseResultat;
-                } else {
-                    let finalResult = 1;
-                    eq.forEach(obj => {
-                        finalResult = finalResult * obj.inverseResultat
+                console.log(equationArray);
+                let quotientHolder = [];
+                let historiques = [];
+                for(let i = 0;i < equationArray.length;i++) {
+                    historiques.push({
+                        reste: equationArray[i].reste,
+                        quotients: []
                     });
-                    return finalResult +1;
+                    historiques[i].quotients.push(equationArray[i].inverseReste);
+                    if(equationArray[i].modulo === ORIGINAL_PENTE) {
+                        historiques[i].quotients.push(1);
+                    }
                 }
+                let originalHistoriques = historiques;
+                for(let i = equationArray.length-1;i >= 0;i--) {
+                    let currentMultiplicater = equationArray[i].inverseReste;
+                    historiques.forEach(historique => {
+                        if(quotientHolder.length > 0 && (equationArray[i].pente === historique.reste)) {
+                            historique.quotients = quotientHolder;
+                            quotientHolder = [];
+                        }
+                        if(equationArray[i].modulo === historique.reste) {
+                            originalHistoriques.forEach(originalHistorique => {
+                                if(originalHistorique.reste === historique.reste) {
+                                    originalHistorique.quotients.forEach(quotient => {
+                                        quotientHolder.push(quotient);
+                                    })
+                                }
+                            })
+                        }
+                        if(equationArray[i].pente === historique.reste) {
+                            let somme = 0;
+                            for(let j = 0;j < historique.quotients.length;j++) {
+                                somme = somme + historique.quotients[j] * currentMultiplicater;
+                            }
+                            if(somme !== 0) {
+                                quotientHolder.push(somme)
+                            }
+                        }
+                    });
+                    if(equationArray[i].modulo === ORIGINAL_PENTE) {
+                        quotientHolder.push(1);
+                    }
+                }
+                let finalResult = 0;
+                quotientHolder.forEach(quotient => {
+                    finalResult = finalResult + quotient;
+                });
+                return finalResult;
             }
-            return MathUtil.findKey(reste, pente, eq);
+            return MathUtil.findKey(reste, pente, ORIGINAL_PENTE, equationArray);
         }
     }
 

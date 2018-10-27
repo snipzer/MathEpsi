@@ -6,7 +6,7 @@ class Crypter {
     constructor(slope, intercept, modulo) {
         this.modulo = modulo;
         this.affinneCrypter = new AffFunction(slope, intercept);
-        this.affinneDecrypter = MathUtil.constructInverseEq(MathUtil.findKey(slope, modulo), this.affinneCrypter, modulo);
+        this.affinneDecrypter = MathUtil.constructInverseEq(MathUtil.findKey(slope, modulo, slope), this.affinneCrypter, modulo);
         this.stringUtil = new StringUtil();
     }
 
