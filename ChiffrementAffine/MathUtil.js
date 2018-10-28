@@ -35,7 +35,6 @@ class MathUtil {
                 stringEq: `${reste} = ${modulo} + ${pente} * ${inverseReste}`
             });
             if (reste === 1) {
-                console.log(equationArray);
                 let quotientHolder = [];
                 let historiques = [];
                 for(let i = 0;i < equationArray.length;i++) {
