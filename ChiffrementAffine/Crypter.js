@@ -5,6 +5,7 @@ const StringUtil = require('./StringUtil');
 class Crypter {
     constructor(slope, intercept, modulo) {
         this.modulo = modulo;
+        intercept = (intercept > 0) ? intercept : MathUtil.getPosOfModulo(intercept, modulo);
         this.affinneCrypter = new AffFunction(slope, intercept);
         this.affinneDecrypter = MathUtil.constructInverseEq(MathUtil.findKey(slope, modulo, slope), this.affinneCrypter, modulo);
         this.stringUtil = new StringUtil();

@@ -1,5 +1,6 @@
 const Readline = require('readline');
 const Crypter = require('./Crypter');
+const MathUtil = require('./MathUtil');
 
 // Pos test
 // const modulo = 26;
