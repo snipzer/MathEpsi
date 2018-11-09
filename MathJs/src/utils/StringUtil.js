@@ -1,16 +1,21 @@
 class StringUtil {
-    constructor() {
-        this.defaultAlphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    constructor(isExtendedAlphabet) {
+        isExtendedAlphabet = isExtendedAlphabet || false;
+        if(isExtendedAlphabet) {
+            this.alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz,?;.:/!§ù%*µ^¨$£¤}=+])°@àç_è-[({#~é&²'
+        } else {
+            this.alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        }
     }
 
     getCharById(id) {
-        if(id < 0 && id > 25) throw new Error("Error, parameter must be an integer beetween 0 and 25");
-        return this.defaultAlphabet[id];
+        if(id < 0 && id > this.alphabet.length-1) throw new Error("Error, parameter must be an integer beetween 0 and 25");
+        return this.alphabet[id];
     };
 
     getIdByChar(char) {
         if(typeof char !== "string") throw new Error("Error, parameter must be a string");
-        return this.defaultAlphabet.indexOf(char.toUpperCase())
+        return this.alphabet.indexOf(char);
     }
 }
 

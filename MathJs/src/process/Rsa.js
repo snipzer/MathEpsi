@@ -5,7 +5,7 @@ const PowerFunction = require('../functions/PowerFunction');
 
 class Rsa {
     constructor(p, q) {
-        this.stringUtil = new StringUtil();
+        this.stringUtil = new StringUtil(true);
         this.n = p * q;
         this.m = (p-1)*(q-1);
         this.e = this._calculateE();

@@ -7,6 +7,9 @@ class InversedKeyFinder {
 
     execute(pente, modulo, equationArray) {
         equationArray = equationArray || [];
+        if(equationArray.length === 0) {
+            if(!MathUtil.isNumbersPrimed(pente, modulo)) throw new Error("Pente and modulo aren't primed !");
+        }
         if(pente === 1 && equationArray.length === 0) return pente;
         let resultat = Math.trunc(modulo / pente);
         let reste = MathUtil.modulo(modulo, pente);

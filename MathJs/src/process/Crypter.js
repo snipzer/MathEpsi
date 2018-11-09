@@ -18,7 +18,7 @@ class Crypter {
 
     convert(inputString, affineFunction) {
         let outputString = "";
-        for(let index in inputString) {
+        for(let index in inputString.toUpperCase()) {
             let currentChar = inputString[index];
             let convertCharId = this.execute(this.stringUtil.getIdByChar(currentChar), affineFunction);
             outputString = outputString + this.stringUtil.getCharById(convertCharId);
