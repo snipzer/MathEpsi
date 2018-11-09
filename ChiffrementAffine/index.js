@@ -1,48 +1,53 @@
 const MathUtil = require('./MathUtil');
+const InversedKeyFinder = require('./InversedKeyFinder');
 const ChineseRemainder = require('./ChineseRemainder');
 const CREquationHolder = require('./ChineseRemainderEquationHolder');
 
 //
-// console.log("Exercice 1");
-// let eq1 = "0 %25";
-// let eq2 = "-3 %31";
-//
-// let a = 0;
-// let modA = 25;
-//
-// console.log("a = "+a);
-// console.log("modA = "+modA);
-//
-// let b = -3;
-// let modB = 31;
-//
-// console.log("b = "+b);
-// console.log("modB = "+modB);
-//
-// let k = modA * modB;
-//
-// console.log('k = '+k);
-//
-// let Ma = modB;
-// let Mb = modA;
-//
-// console.log('Ma = '+Ma);
-// console.log('Mb = '+Mb);
-//
-// console.log(MathUtil.getInfOfModulo(Ma, modA))
-// console.log(MathUtil.getInfOfModulo(Mb, modB))
-//
-// let ya = MathUtil.findKey(MathUtil.getInfOfModulo(Ma, modA), modA, Ma);
-// let yb = MathUtil.findKey(MathUtil.getInfOfModulo(Mb, modB), modB, Mb);
-//
-// console.log("ya = "+ya);
-// console.log("yb = "+yb);
-//
-// let result = ((a * ya * Ma) + (b * yb * Mb)) % k;
-//
-// console.log(result);
-// console.log(MathUtil.getPosOfModulo(result, k));
-//
+console.log("Exercice 1");
+let eq1 = "0 %25";
+let eq2 = "-3 %31";
+
+let a = 0;
+let modA = 25;
+
+console.log("a = "+a);
+console.log("modA = "+modA);
+
+let b = -3;
+let modB = 31;
+
+console.log("b = "+b);
+console.log("modB = "+modB);
+
+let k = modA * modB;
+
+console.log('k = '+k);
+
+let Ma = modB;
+let Mb = modA;
+
+console.log('Ma = '+Ma);
+console.log('Mb = '+Mb);
+
+console.log(MathUtil.getInfOfModulo(Ma, modA))
+console.log(MathUtil.getInfOfModulo(Mb, modB))
+
+let ya = new InversedKeyFinder(MathUtil.getInfOfModulo(Ma, modA)).execute(MathUtil.getInfOfModulo(Ma, modA), modA);
+let yb = new InversedKeyFinder(MathUtil.getInfOfModulo(Mb, modB)).execute(MathUtil.getInfOfModulo(Mb, modB), modB);
+
+console.log("ya = "+ya);
+console.log("yb = "+yb);
+
+let result = ((a * ya * Ma) + (b * yb * Mb)) % k;
+
+console.log("Procedural result = " + MathUtil.getPosOfModulo(result, k));
+
+const chineseRemainder = new ChineseRemainder([
+    new CREquationHolder(0, 25),
+    new CREquationHolder(-3, 31)
+]);
+console.log("Result with chineseRemainderProcess = " + chineseRemainder.execute());
 
 
 // console.log("Exercice 2");
@@ -146,11 +151,11 @@ const CREquationHolder = require('./ChineseRemainderEquationHolder');
 // console.log(inverseMb);
 // console.log(inverseMc);
 //
-// let ya = MathUtil.findKey(inverseMa, modA, inverseMa);
+// let ya = new InversedKeyFinder(inverseMa).execute(inverseMa, modA);
 // console.log("ya = "+ya);
-// let yb = MathUtil.findKey(inverseMb, modB, inverseMb);
+// let yb = new InversedKeyFinder(inverseMb).execute(inverseMb, modB);
 // console.log("yb = "+yb);
-// let yc = MathUtil.findKey(inverseMc, modC, inverseMc);
+// let yc = new InversedKeyFinder(inverseMc).execute(inverseMc, modC);
 // console.log("yc = "+yc);
 //
 // let result = ((a * ya * Ma) + (b * yb * Mb) + (c * yc * Mc)) % k;

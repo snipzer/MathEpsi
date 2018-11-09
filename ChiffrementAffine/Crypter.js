@@ -1,13 +1,14 @@
 const MathUtil = require('./MathUtil');
 const AffFunction = require('./AffFunction');
 const StringUtil = require('./StringUtil');
+const InversedKeyFinder = require('./InversedKeyFinder');
 
 class Crypter {
     constructor(slope, intercept, modulo) {
         this.modulo = modulo;
         intercept = (intercept > 0) ? intercept : MathUtil.getPosOfModulo(intercept, modulo);
         this.affinneCrypter = new AffFunction(slope, intercept);
-        this.affinneDecrypter = MathUtil.constructInverseEq(MathUtil.findKey(slope, modulo, slope), this.affinneCrypter, modulo);
+        this.affinneDecrypter = MathUtil.constructInverseEq(new InversedKeyFinder(slope).execute(slope, modulo), this.affinneCrypter, modulo);
         this.stringUtil = new StringUtil();
     }
 

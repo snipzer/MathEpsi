@@ -1,4 +1,5 @@
 const MathUtil = require('./MathUtil');
+const InversedKeyFinder = require('./InversedKeyFinder');
 
 class ChineseRemainder {
     constructor(equations) {
@@ -11,10 +12,6 @@ class ChineseRemainder {
     }
 
     execute() {
-        return this._process();
-    }
-
-    _process() {
         for(let i = 0;i < this.equations.length;i++) {
             this._calculateMValue(i);
             this._calculateYValue(this.equations[i]);
@@ -38,7 +35,7 @@ class ChineseRemainder {
         if(mValue < 0) {
             mValue = MathUtil.getPosOfModulo(equation.Mvalue, equation.modulo);
         }
-        equation.Yvalue = MathUtil.findKey(mValue, equation.modulo, mValue);
+        equation.Yvalue = new InversedKeyFinder(mValue).execute(mValue, equation.modulo);
     }
 
     _calculateResultat() {
