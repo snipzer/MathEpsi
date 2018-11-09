@@ -1,7 +1,7 @@
-const MathUtil = require('./MathUtil');
-const InversedKeyFinder = require('./InversedKeyFinder');
-const ChineseRemainder = require('./ChineseRemainder');
-const CREquationHolder = require('./ChineseRemainderEquationHolder');
+const MathUtil = require('../utils/MathUtil');
+const InversedKeyFinder = require('../utils/InversedKeyFinderUtil');
+const ChineseRemainder = require('../process/ChineseRemainder');
+const CREquationHolder = require('../process/ChineseRemainderEquationHolder');
 
 //
 console.log("Exercice 1");
@@ -169,3 +169,5 @@ console.log("Result with chineseRemainderProcess = " + chineseRemainder.execute(
 //     new CREquationHolder(4, 11),
 // ]);
 // console.log("Result with chineseRemainderProcess = " + chineseRemainder.execute());
+
+console.log(MathUtil.power(2, 5));

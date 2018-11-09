@@ -2,9 +2,11 @@
   "name": "chiffrementaffine",
   "version": "1.0.0",
   "description": "",
-  "main": "math.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node math.js"
+    "start": "node index.js",
+    "affineCrypter": "node executions/affineCrypterExec.js",
+    "chineseRemainder": "node executions/chineseRemainder.js"
   },
   "author": "",
   "license": "ISC",

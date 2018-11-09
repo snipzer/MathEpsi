@@ -1,5 +1,5 @@
-const MathUtil = require('./MathUtil');
-const InversedKeyFinder = require('./InversedKeyFinder');
+const MathUtil = require('../utils/MathUtil');
+const InversedKeyFinder = require('../utils/InversedKeyFinderUtil');
 
 class ChineseRemainder {
     constructor(equations) {

@@ -1,7 +1,7 @@
-const MathUtil = require('./MathUtil');
-const AffFunction = require('./AffFunction');
-const StringUtil = require('./StringUtil');
-const InversedKeyFinder = require('./InversedKeyFinder');
+const MathUtil = require('../utils/MathUtil');
+const AffFunction = require('../functions/AffFunction');
+const StringUtil = require('../utils/StringUtil');
+const InversedKeyFinder = require('../utils/InversedKeyFinderUtil');
 
 class Crypter {
     constructor(slope, intercept, modulo) {

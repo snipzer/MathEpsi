@@ -1,27 +1,23 @@
-const AffFunction = require('./AffFunction');
+const AffFunction = require('../functions/AffFunction');
 
 class MathUtil {
     constructor() {
         throw new Error('Don\'t instanciate an util class !');
     }
 
-    static isNumbersPrime(a, b) {
+    static isNumbersPrimed(a, b) {
         if (b) {
-            return MathUtil.isNumbersPrime(b, a % b);
+            return MathUtil.isNumbersPrimed(b, a % b);
         } else {
             return (a === 1);
         }
     }
 
-    static getPGCD(x, y) {
-        x = Math.abs(x);
-        y = Math.abs(y);
-        while(y) {
-            let t = y;
-            y = x % y;
-            x = t;
+    static power(number, power) {
+        for(let i = 1; i < power; i++) {
+            number = number + number;
         }
-        return x;
+        return number;
     }
 
     static getPosOfModulo(number, modulo) {
