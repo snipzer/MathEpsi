@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "affineCrypter": "node executions/affineCrypterExec.js",
-    "chineseRemainder": "node executions/chineseRemainder.js"
+    "start": "node src/index.js",
+    "affineCrypter": "node src/executions/affineCrypterExec.js",
+    "chineseRemainder": "node src/executions/chineseRemainder.js"
   },
   "author": "",
   "license": "ISC",
