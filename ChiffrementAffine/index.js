@@ -103,64 +103,64 @@ const CREquationHolder = require('./ChineseRemainderEquationHolder');
 // ]);
 // console.log(chineseRemainder.execute());
 //
-let eq1 = "2 %13";
-let eq2 = "-3 %17";
-let eq3 = "4 % 11";
-
-let a = 2;
-let modA = 13;
-
-console.log("a = "+a);
-console.log("modA = "+modA);
-
-let b = -3;
-let modB = 17;
-
-console.log("b = "+b);
-console.log("modB = "+modB);
-
-let c = 4;
-let modC = 11;
-
-console.log("c = "+c);
-console.log("modC = "+modC);
-
-let k = modA * modB * modC;
-
-console.log('k = '+k);
-
-let Ma = modB*modC;
-let Mb = modA*modC;
-let Mc = modB*modA;
-
-console.log('Ma = '+Ma);
-console.log('Mb = '+Mb);
-console.log("Mc = "+Mc);
-
-let inverseMa = MathUtil.getInfOfModulo(Ma, modA);
-let inverseMb = MathUtil.getInfOfModulo(Mb, modB);
-let inverseMc = MathUtil.getInfOfModulo(Mc, modC);
-
-console.log();
-console.log(inverseMa);
-console.log(inverseMb);
-console.log(inverseMc);
-
-let ya = MathUtil.findKey(inverseMa, modA, inverseMa);
-console.log("ya = "+ya);
-let yb = MathUtil.findKey(inverseMb, modB, inverseMb);
-console.log("yb = "+yb);
-let yc = MathUtil.findKey(inverseMc, modC, inverseMc);
-console.log("yc = "+yc);
-
-let result = ((a * ya * Ma) + (b * yb * Mb) + (c * yc * Mc)) % k;
-
-console.log(result);
-console.log("Procedural result = " + MathUtil.getPosOfModulo(result, k));
-
-const chineseRemainder = new ChineseRemainder([
-    new CREquationHolder(2, 13),
-    new CREquationHolder(-3, 17),
-    new CREquationHolder(4, 11),
-]);
-console.log("Result with chineseRemainderProcess = " + chineseRemainder.execute());
+// let eq1 = "2 %13";
+// let eq2 = "-3 %17";
+// let eq3 = "4 % 11";
+//
+// let a = 2;
+// let modA = 13;
+//
+// console.log("a = "+a);
+// console.log("modA = "+modA);
+//
+// let b = -3;
+// let modB = 17;
+//
+// console.log("b = "+b);
+// console.log("modB = "+modB);
+//
+// let c = 4;
+// let modC = 11;
+//
+// console.log("c = "+c);
+// console.log("modC = "+modC);
+//
+// let k = modA * modB * modC;
+//
+// console.log('k = '+k);
+//
+// let Ma = modB*modC;
+// let Mb = modA*modC;
+// let Mc = modB*modA;
+//
+// console.log('Ma = '+Ma);
+// console.log('Mb = '+Mb);
+// console.log("Mc = "+Mc);
+//
+// let inverseMa = MathUtil.getInfOfModulo(Ma, modA);
+// let inverseMb = MathUtil.getInfOfModulo(Mb, modB);
+// let inverseMc = MathUtil.getInfOfModulo(Mc, modC);
+//
+// console.log();
+// console.log(inverseMa);
+// console.log(inverseMb);
+// console.log(inverseMc);
+//
+// let ya = MathUtil.findKey(inverseMa, modA, inverseMa);
+// console.log("ya = "+ya);
+// let yb = MathUtil.findKey(inverseMb, modB, inverseMb);
+// console.log("yb = "+yb);
+// let yc = MathUtil.findKey(inverseMc, modC, inverseMc);
+// console.log("yc = "+yc);
+//
+// let result = ((a * ya * Ma) + (b * yb * Mb) + (c * yc * Mc)) % k;
+//
+// console.log(result);
+// console.log("Procedural result = " + MathUtil.getPosOfModulo(result, k));
+//
+// const chineseRemainder = new ChineseRemainder([
+//     new CREquationHolder(2, 13),
+//     new CREquationHolder(-3, 17),
+//     new CREquationHolder(4, 11),
+// ]);
+// console.log("Result with chineseRemainderProcess = " + chineseRemainder.execute());
