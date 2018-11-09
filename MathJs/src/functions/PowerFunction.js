@@ -3,7 +3,7 @@ const MathUtil = require('../utils/MathUtil');
 class PowerFunction {
     constructor(power, intercept) {
         this.power = power;
-        this.intercept = intercept;
+        this.intercept = intercept || 0;
     }
 
     execute(input) {
