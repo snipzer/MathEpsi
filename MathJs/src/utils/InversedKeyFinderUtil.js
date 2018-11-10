@@ -37,11 +37,17 @@ class InversedKeyFinder {
         let quotientHolder = [];
         for (let i = equationArray.length - 1; i >= 0; i--) {
             let currentMultiplicater = equationArray[i].inverseReste;
-            equationDatas.forEach(equationData => {
-                quotientHolder = this._getQuotientsFromUpwardEquation(quotientHolder, equationArray, i, equationData);
-                this._getQuotientsFromUpwardEquationWithModulo(equationArray, i, equationData, originalEquationDatas, quotientHolder);
-                this._getQuotientsFromUpwardEquationWithSlope(equationArray, i, equationData, currentMultiplicater, quotientHolder);
-            });
+            if(equationDatas.length > 1) {
+                equationDatas.forEach(equationData => {
+                    quotientHolder = this._getQuotientsFromUpwardEquation(quotientHolder, equationArray, i, equationData);
+                    this._getQuotientsFromUpwardEquationWithModulo(equationArray, i, equationData, originalEquationDatas, quotientHolder);
+                    this._getQuotientsFromUpwardEquationWithSlope(equationArray, i, equationData, currentMultiplicater, quotientHolder);
+                });
+            } else {
+                equationDatas[i].quotients.forEach(quotient => {
+                    quotientHolder.push(quotient)
+                })
+            }
             if (equationArray[i].modulo === this.originalPente) {
                 quotientHolder.push(1);
             }
