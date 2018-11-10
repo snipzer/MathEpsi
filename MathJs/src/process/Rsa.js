@@ -6,8 +6,16 @@ const PowerFunction = require('../functions/PowerFunction');
 class Rsa {
     constructor(p, q) {
         this.stringUtil = new StringUtil(true);
+        console.log("====================");
+        console.log(`Calculating modulo with p equals ${p}, and q equals ${q}:`);
         this.n = p * q;
+        console.log("====================");
+        console.log(`Modulo n equals : ${this.n}`);
+        if(this.n > this.stringUtil.alphabet.length)
+            throw new Error(`If n > ${this.stringUtil.alphabet.length}, undefined character may appear...`);
         this.m = (p-1)*(q-1);
+        console.log("====================");
+        console.log(`Finding m : (p-1)*(q-1) equals ${this.m}`);
         this.e = this._calculateE();
         this.d = this._calculateD();
         this.powerCrypter = new PowerFunction(this.e);
@@ -19,7 +27,6 @@ class Rsa {
         for(let index in inputString) {
             let currentChar = inputString[index];
             let convertCharId = this.execute(this.stringUtil.getIdByChar(currentChar), powerFunction, modulo);
-            console.log(`ConvertCharId: ${convertCharId}`);
             outputString = outputString + this.stringUtil.getCharById(convertCharId);
         }
         return outputString;
@@ -30,6 +37,8 @@ class Rsa {
     }
 
     _calculateE() {
+        console.log("====================");
+        console.log("Resolving e :");
         let calculate = true;
         let e = 2;
         while(calculate) {
@@ -39,16 +48,22 @@ class Rsa {
                 e = e + 1;
             }
         }
+        console.log(`First valid e equals : ${e}`);
         return e;
     }
 
     _calculateD() {
+        console.log("====================");
+        console.log("Resolving d :");
         let value = new InversedKeyFinder(this.e).execute(this.e, this.m);
+        console.log(`Inverse of ${this.e} mod(${this.m}) equals : ${value}`);
         if(value > this.m) {
             value = MathUtil.getInfOfModulo(value, this.m);
+            console.log(`Value of d is superior of ${this.m}, new of d equals : ${value}`);
         }
         if(value < 0) {
             value = MathUtil.getPosOfModulo(value, this.m);
+            console.log(`Value of d is negative, new value of d equals : ${value}`);
         }
         return value;
     }

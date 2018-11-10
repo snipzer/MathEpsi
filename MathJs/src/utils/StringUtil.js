@@ -2,7 +2,7 @@ class StringUtil {
     constructor(isExtendedAlphabet) {
         isExtendedAlphabet = isExtendedAlphabet || false;
         if(isExtendedAlphabet) {
-            this.alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz,?;.:/!§ù%*µ^¨$£¤}=+])°@àç_è-[({#~é&²'
+            this.alphabet = this._creatingExtendedAlphabet()+this._creatingExtendedAlphabet();
         } else {
             this.alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         }
@@ -16,6 +16,14 @@ class StringUtil {
     getIdByChar(char) {
         if(typeof char !== "string") throw new Error("Error, parameter must be a string");
         return this.alphabet.indexOf(char);
+    }
+
+    _creatingExtendedAlphabet() {
+        let alphabet = '';
+        for(let i = 32; i <= 127; i++) {
+            alphabet += String.fromCharCode(i);
+        }
+        return alphabet;
     }
 }
 
