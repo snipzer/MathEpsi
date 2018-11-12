@@ -22,36 +22,20 @@ class Rsa {
         this.powerDecrypter = new PowerFunction(this.d);
     }
 
-    convert(inputString, powerFunction) {
+    convert(inputString, power, modulo) {
         let outputString = "";
         for(let index in inputString) {
             let currentChar = inputString[index];
-            console.log(`Current char : ${currentChar} => ${this.stringUtil.getIdByChar(currentChar)}`);
-            let convertCharId = this.execute(this.stringUtil.getIdByChar(currentChar), powerFunction);
-            console.log(`ConvertCharId: ${convertCharId} => ${this.stringUtil.getCharById(convertCharId)}`);
+            //console.log(`Current char : ${currentChar} => ${this.stringUtil.getIdByChar(currentChar)}`);
+            let convertCharId = this.executeModPow(this.stringUtil.getIdByChar(currentChar), power, modulo);
+            //console.log(`ConvertCharId: ${convertCharId} => ${this.stringUtil.getCharById(convertCharId)}`);
             outputString = outputString + this.stringUtil.getCharById(convertCharId);
         }
         return outputString;
     }
 
-    convertDecrypt(inputString, powerFunction) {
-        let outputString = "";
-        for(let index in inputString) {
-            let currentChar = inputString[index];
-            console.log(`Current char : ${currentChar} => ${this.stringUtil.getIdByChar(currentChar)}`);
-            let convertCharId = this.executeModPow(this.stringUtil.getIdByChar(currentChar), powerFunction);
-            console.log(`ConvertCharId: ${convertCharId} => ${this.stringUtil.getCharById(convertCharId)}`);
-            outputString = outputString + this.stringUtil.getCharById(convertCharId);
-        }
-        return outputString;
-    }
-
-    execute(input, powerFunction) {
-        return powerFunction.execute(input) % this.n;
-    }
-
-    executeModPow(input, powerFunction) {
-        return powerFunction.executeModPow(input, this.n);
+    executeModPow(input, power, modulo) {
+        return MathUtil.modpow(input, power, modulo);
     }
 
     _calculateE() {

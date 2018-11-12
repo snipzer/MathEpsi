@@ -1,21 +1,20 @@
 const MathUtil = require('../utils/MathUtil');
 
 class PowerFunction {
-    constructor(power, intercept) {
+    constructor(power) {
         this.power = power;
-        this.intercept = intercept || 0;
     }
 
     execute(input) {
-        return MathUtil.power(input, this.power) + this.intercept;
+        return MathUtil.power(input, this.power);
     }
 
     executeModPow(input, modulo) {
-        return MathUtil.modpow(input, this.power, modulo);
+        return
     }
 
     toString() {
-        return `X^${this.power} + ${this.intercept}`;
+        return `X^${this.power}`;
     }
 }
 
