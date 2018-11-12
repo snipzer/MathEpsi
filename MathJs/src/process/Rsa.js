@@ -5,7 +5,7 @@ const PowerFunction = require('../functions/PowerFunction');
 
 class Rsa {
     constructor(p, q) {
-        this.stringUtil = new StringUtil(true);
+        this.stringUtil = new StringUtil(false);
         console.log("====================");
         console.log(`Calculating modulo with p equals ${p}, and q equals ${q}:`);
         this.n = p * q;
@@ -27,6 +27,7 @@ class Rsa {
         for(let index in inputString) {
             let currentChar = inputString[index];
             let convertCharId = this.execute(this.stringUtil.getIdByChar(currentChar), powerFunction, modulo);
+            console.log(`ConvertCharId: ${convertCharId}`);
             outputString = outputString + this.stringUtil.getCharById(convertCharId);
         }
         return outputString;

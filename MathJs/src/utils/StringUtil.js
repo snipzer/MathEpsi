@@ -2,14 +2,14 @@ class StringUtil {
     constructor(isExtendedAlphabet) {
         isExtendedAlphabet = isExtendedAlphabet || false;
         if(isExtendedAlphabet) {
-            this.alphabet = this._creatingExtendedAlphabet()+this._creatingExtendedAlphabet();
+            this.alphabet = this._creatingExtendedAlphabet();
         } else {
-            this.alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            this.alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvxyz123456789';
         }
     }
 
     getCharById(id) {
-        if(id < 0 && id > this.alphabet.length-1) throw new Error("Error, parameter must be an integer beetween 0 and 25");
+        if(id < 0 && id > this.alphabet.length-1) throw new Error(`Error, parameter must be an integer beetween 0 and ${this.alphabet.length-1}`);
         return this.alphabet[id];
     };
 
