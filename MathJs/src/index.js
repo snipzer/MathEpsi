@@ -1,7 +1,7 @@
 const Rsa = require('./process/Rsa');
 
-const rsa = new Rsa(3, 11);
-const initialString = "AZERTY";
+const rsa = new Rsa(7, 11);
+const initialString = "DUC";
 
 
 console.log("====================");
@@ -14,8 +14,8 @@ console.log(`encypterFunction : ${rsa.powerCrypter.toString()} mod(${rsa.n})`);
 console.log(`decrypterFunction : ${rsa.powerDecrypter.toString()} mod(${rsa.n})`);
 console.log("====================");
 
-const cryptedString = rsa.convert(initialString, rsa.powerCrypter, rsa.n);
+const cryptedString = rsa.convertDecrypt(initialString, rsa.powerCrypter);
 console.log(`Crypted string = ${cryptedString}`);
 
-const decryptedString = rsa.convert(cryptedString, rsa.powerDecrypter, rsa.n);
+const decryptedString = rsa.convertDecrypt(cryptedString, rsa.powerDecrypter);
 console.log(`Decrypted string = ${decryptedString}`);

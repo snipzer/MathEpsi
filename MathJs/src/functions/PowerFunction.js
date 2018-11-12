@@ -10,6 +10,10 @@ class PowerFunction {
         return MathUtil.power(input, this.power) + this.intercept;
     }
 
+    executeModPow(input, modulo) {
+        return MathUtil.modpow(input, this.power, modulo);
+    }
+
     toString() {
         return `X^${this.power} + ${this.intercept}`;
     }

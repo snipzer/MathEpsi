@@ -5,7 +5,7 @@ const PowerFunction = require('../functions/PowerFunction');
 
 class Rsa {
     constructor(p, q) {
-        this.stringUtil = new StringUtil(false);
+        this.stringUtil = new StringUtil(true);
         console.log("====================");
         console.log(`Calculating modulo with p equals ${p}, and q equals ${q}:`);
         this.n = p * q;
@@ -22,26 +22,43 @@ class Rsa {
         this.powerDecrypter = new PowerFunction(this.d);
     }
 
-    convert(inputString, powerFunction, modulo) {
+    convert(inputString, powerFunction) {
         let outputString = "";
         for(let index in inputString) {
             let currentChar = inputString[index];
-            let convertCharId = this.execute(this.stringUtil.getIdByChar(currentChar), powerFunction, modulo);
-            console.log(`ConvertCharId: ${convertCharId}`);
+            console.log(`Current char : ${currentChar} => ${this.stringUtil.getIdByChar(currentChar)}`);
+            let convertCharId = this.execute(this.stringUtil.getIdByChar(currentChar), powerFunction);
+            console.log(`ConvertCharId: ${convertCharId} => ${this.stringUtil.getCharById(convertCharId)}`);
             outputString = outputString + this.stringUtil.getCharById(convertCharId);
         }
         return outputString;
     }
 
-    execute(input, powerFunction, modulo) {
-        return powerFunction.execute(input) % modulo;
+    convertDecrypt(inputString, powerFunction) {
+        let outputString = "";
+        for(let index in inputString) {
+            let currentChar = inputString[index];
+            console.log(`Current char : ${currentChar} => ${this.stringUtil.getIdByChar(currentChar)}`);
+            let convertCharId = this.executeModPow(this.stringUtil.getIdByChar(currentChar), powerFunction);
+            console.log(`ConvertCharId: ${convertCharId} => ${this.stringUtil.getCharById(convertCharId)}`);
+            outputString = outputString + this.stringUtil.getCharById(convertCharId);
+        }
+        return outputString;
+    }
+
+    execute(input, powerFunction) {
+        return powerFunction.execute(input) % this.n;
+    }
+
+    executeModPow(input, powerFunction) {
+        return powerFunction.executeModPow(input, this.n);
     }
 
     _calculateE() {
         console.log("====================");
         console.log("Resolving e :");
         let calculate = true;
-        let e = 2;
+        let e = 4;
         while(calculate) {
             if(MathUtil.isNumbersPrimed(e, this.m)) {
                 calculate = false;

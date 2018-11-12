@@ -20,6 +20,16 @@ class MathUtil {
         return number;
     }
 
+    static modpow(number, exp, m) {
+        let result = 1;
+        while (exp > 0) {
+            if ((exp & 1) > 0) result = (result * number) % m;
+            exp >>= 1;
+            number = (number * number) % m;
+        }
+        return result;
+    }
+
     static getPosOfModulo(number, modulo) {
         number = number + modulo;
         if(number >= 0) {
