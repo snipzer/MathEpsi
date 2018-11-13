@@ -16,7 +16,6 @@ class InversedKeyFinder {
         let inverseReste = resultat * -1;
         this._fillEquationArray(equationArray, reste, pente, modulo, inverseReste);
         if (reste === 1) {
-            console.log(equationArray);
             return this._outExecution(equationArray);
         }
         return this.execute(reste, pente, equationArray);
