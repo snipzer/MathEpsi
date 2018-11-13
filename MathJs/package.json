@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/index.js",
     "affineCrypter": "node src/executions/affineCrypterExec.js",
-    "chineseRemainder": "node src/executions/chineseRemainder.js"
+    "chineseRemainder": "node src/executions/chineseRemainderExec.js"
   },
   "author": "",
   "license": "ISC",

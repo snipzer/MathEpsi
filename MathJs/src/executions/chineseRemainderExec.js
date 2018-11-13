@@ -30,8 +30,8 @@ let Mb = modA;
 console.log('Ma = '+Ma);
 console.log('Mb = '+Mb);
 
-console.log(MathUtil.getInfOfModulo(Ma, modA))
-console.log(MathUtil.getInfOfModulo(Mb, modB))
+console.log(`Ma rabatue : ${MathUtil.getInfOfModulo(Ma, modA)}`);
+console.log(`Mb rabatue : ${MathUtil.getInfOfModulo(Mb, modB)}`);
 
 let ya = new InversedKeyFinder(MathUtil.getInfOfModulo(Ma, modA)).execute(MathUtil.getInfOfModulo(Ma, modA), modA);
 let yb = new InversedKeyFinder(MathUtil.getInfOfModulo(Mb, modB)).execute(MathUtil.getInfOfModulo(Mb, modB), modB);
@@ -42,12 +42,12 @@ console.log("yb = "+yb);
 let result = ((a * ya * Ma) + (b * yb * Mb)) % k;
 
 console.log("Procedural result = " + MathUtil.getPosOfModulo(result, k));
-
-const chineseRemainder = new ChineseRemainder([
-    new CREquationHolder(0, 25),
-    new CREquationHolder(-3, 31)
-]);
-console.log("Result with chineseRemainderProcess = " + chineseRemainder.execute());
+//
+// const chineseRemainder = new ChineseRemainder([
+//     new CREquationHolder(0, 25),
+//     new CREquationHolder(-3, 31)
+// ]);
+// console.log("Result with chineseRemainderProcess = " + chineseRemainder.execute());
 
 
 // console.log("Exercice 2");
@@ -169,5 +169,3 @@ console.log("Result with chineseRemainderProcess = " + chineseRemainder.execute(
 //     new CREquationHolder(4, 11),
 // ]);
 // console.log("Result with chineseRemainderProcess = " + chineseRemainder.execute());
-
-console.log(MathUtil.power(2, 5));
