@@ -1,11 +1,11 @@
 const Rsa = require('./process/Rsa');
 
-const rsa = new Rsa(7, 13);
-const initialString = "AZERTYAZERTY";
+const rsa = new Rsa(7, 11);
+const initialInput = "AZERTYAZERTY";
 
 
 console.log("====================");
-console.log(`Starting to encrypt "${initialString}" with :`);
+console.log(`Starting to encrypt "${initialInput}" with :`);
 console.log(`n = ${rsa.n}`);
 console.log(`m = ${rsa.m}`);
 console.log(`e = ${rsa.e}`);
@@ -14,8 +14,11 @@ console.log(`encypterFunction : ${rsa.powerCrypter.toString()} mod(${rsa.n})`);
 console.log(`decrypterFunction : ${rsa.powerDecrypter.toString()} mod(${rsa.n})`);
 console.log("====================");
 
-const cryptedString = rsa.convert(initialString, rsa.e, rsa.n);
-console.log(`Crypted string = ${cryptedString}`);
-
-const decryptedString = rsa.convert(cryptedString, rsa.d, rsa.n);
-console.log(`Decrypted string = ${decryptedString}`);
+try {
+    const cryptedInput = rsa.convert(initialInput, rsa.e, rsa.n);
+    console.log(`Crypted input = ${cryptedInput}`);
+    const decryptedInput = rsa.convert(cryptedInput, rsa.d, rsa.n);
+    console.log(`Decrypted input = ${decryptedInput}`);
+} catch(error) {
+    console.log(error.message);
+}

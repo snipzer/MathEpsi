@@ -9,10 +9,6 @@ class PowerFunction {
         return MathUtil.power(input, this.power);
     }
 
-    executeModPow(input, modulo) {
-        return
-    }
-
     toString() {
         return `X^${this.power}`;
     }

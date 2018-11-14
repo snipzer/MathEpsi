@@ -15,8 +15,6 @@ class Rsa {
         this.n = p * q;
         console.log("====================");
         console.log(`Modulo n equals : ${this.n}`);
-        if(this.n > this.stringUtil.alphabet.length)
-            throw new Error(`If n > ${this.stringUtil.alphabet.length}, undefined character may appear...`);
         this.m = (p-1)*(q-1);
         console.log("====================");
         console.log(`Finding m : (p-1)*(q-1) equals ${this.m}`);
@@ -26,16 +24,30 @@ class Rsa {
         this.powerDecrypter = new PowerFunction(this.d);
     }
 
-    convert(inputString, power, modulo) {
+    convert(input, power, modulo) {
+        if(typeof input === 'string' || input instanceof String) {
+            return this.convertString(input, power, modulo);
+        } else {
+            return this.convertInt(parseInt(input, 10), power, modulo);
+        }
+    }
+
+    convertString(inputString, power, modulo) {
+        if(this.n > this.stringUtil.alphabet.length)
+            throw new Error(`If n > ${this.stringUtil.alphabet.length}, undefined character may appear...`);
         let outputString = "";
         for(let index in inputString) {
             let currentChar = inputString[index];
-            //console.log(`Current char : ${currentChar} => ${this.stringUtil.getIdByChar(currentChar)}`);
             let convertCharId = this.executeModPow(this.stringUtil.getIdByChar(currentChar), power, modulo);
-            //console.log(`ConvertCharId: ${convertCharId} => ${this.stringUtil.getCharById(convertCharId)}`);
             outputString = outputString + this.stringUtil.getCharById(convertCharId);
         }
         return outputString;
+    }
+
+    convertInt(integer, power, modulo) {
+        if(integer > this.n)
+            throw new Error(`It can't work if the input ${integer} is > to ${this.n}`);
+        return this.executeModPow(integer, power, modulo);
     }
 
     executeModPow(input, power, modulo) {
