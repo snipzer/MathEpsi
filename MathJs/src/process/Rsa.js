@@ -18,7 +18,7 @@ class Rsa {
         this.m = (p-1)*(q-1);
         console.log("====================");
         console.log(`Finding m : (p-1)*(q-1) equals ${this.m}`);
-        this.e = this._calculateE();
+        this.e = 7//this._calculateE();
         this.d = this._calculateD();
         this.powerCrypter = new PowerFunction(this.e);
         this.powerDecrypter = new PowerFunction(this.d);
@@ -42,6 +42,20 @@ class Rsa {
             outputString = outputString + this.stringUtil.getCharById(convertCharId);
         }
         return outputString;
+    }
+
+    // TODO parseInt("010", 10) => 10
+    _stringToIntArray(string) {
+        let intArray = [];
+        for(let index in string) {
+            let int = this.stringUtil.getIdByChar(string[index]);
+            intArray.push();
+        }
+        return intArray;
+    }
+
+    _intToString(intArray) {
+
     }
 
     convertInt(integer, power, modulo) {

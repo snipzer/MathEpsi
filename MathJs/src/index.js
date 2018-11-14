@@ -1,7 +1,7 @@
 const Rsa = require('./process/Rsa');
 
-const rsa = new Rsa(7, 11);
-const initialInput = "AZERTYAZERTY";
+const rsa = new Rsa(53, 97);
+const initialInput = 10;
 
 
 console.log("====================");
