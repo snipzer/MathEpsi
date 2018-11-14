@@ -6,6 +6,10 @@ const PowerFunction = require('../functions/PowerFunction');
 class Rsa {
     constructor(p, q) {
         this.stringUtil = new StringUtil(true);
+        if(!MathUtil.isPrime(p))
+            throw new Error(`p must be a primed number`);
+        if(!MathUtil.isPrime(q))
+            throw new Error(`q must be a primed number`);
         console.log("====================");
         console.log(`Calculating modulo with p equals ${p}, and q equals ${q}:`);
         this.n = p * q;

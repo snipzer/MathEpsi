@@ -13,6 +13,12 @@ class MathUtil {
         }
     }
 
+    static isPrime(num) {
+        for(let i = 2; i < num; i++)
+            if(num % i === 0) return false;
+        return num !== 1 && num !== 0;
+    }
+
     static power(number, power) {
         for(let i = 1; i < power; i++) {
             number = number + number;
