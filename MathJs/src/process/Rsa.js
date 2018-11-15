@@ -15,10 +15,13 @@ class Rsa {
         this.n = p * q;
         console.log("====================");
         console.log(`Modulo n equals : ${this.n}`);
+        console.log("====================");
+        this.blockSize = this.n.toString().length - 1;
+        console.log(`Block size equal ${this.blockSize}`);
         this.m = (p-1)*(q-1);
         console.log("====================");
         console.log(`Finding m : (p-1)*(q-1) equals ${this.m}`);
-        this.e = 7//this._calculateE();
+        this.e = this._calculateE();
         this.d = this._calculateD();
         this.powerCrypter = new PowerFunction(this.e);
         this.powerDecrypter = new PowerFunction(this.d);
@@ -39,24 +42,59 @@ class Rsa {
         for(let index in inputString) {
             let currentChar = inputString[index];
             let convertCharId = this.executeModPow(this.stringUtil.getIdByChar(currentChar), power, modulo);
+            console.log(`CurrentChar ${currentChar} is ${this.stringUtil.getIdByChar(currentChar)} give ${convertCharId} so ${this.stringUtil.getCharById(convertCharId)}`);
             outputString = outputString + this.stringUtil.getCharById(convertCharId);
         }
         return outputString;
     }
-
-    // TODO parseInt("010", 10) => 10
-    _stringToIntArray(string) {
-        let intArray = [];
-        for(let index in string) {
-            let int = this.stringUtil.getIdByChar(string[index]);
-            intArray.push();
-        }
-        return intArray;
-    }
-
-    _intToString(intArray) {
-
-    }
+    // TODO work in progress
+    // encrypt(string) {
+    //     let intArray = [];
+    //     this._stringToIntArray(string).forEach((int) => {
+    //         intArray.push(this.executeModPow(int, this.e, this.n));
+    //     });
+    //     return this._adaptIntToBlockSize(intArray).toString().replace(/,/g, '');
+    // }
+    //
+    // _stringToIntArray(string) {
+    //     let intArray = [];
+    //     for(let index in string) {
+    //         let int = this.stringUtil.getIdByChar(string[index]);
+    //         intArray.push(int);
+    //     }
+    //     return intArray;
+    // }
+    //
+    // _adaptIntToBlockSize(intArray) {
+    //     for(let i = 0; i < intArray.length; i++) {
+    //         if(intArray[i].toString().length < this.blockSize) {
+    //             let zeroToAddQuantity = this.blockSize - intArray[i].toString().length;
+    //             for(let j = 0; j < zeroToAddQuantity; j++) {
+    //                 intArray[i] = "0" + intArray[i]
+    //             }
+    //         }
+    //     }
+    //     return intArray;
+    // }
+    //
+    // decrypt(string) {
+    //     let result = "";
+    //     this._parseStringToIntArray(string).forEach(int => {
+    //         let convertIntId = this.executeModPow(parseInt(int, 10), this.d, this.n);
+    //         console.log(`CurrentInt ${parseInt(int, 10)} give ${convertIntId} so ${this.stringUtil.getCharById(convertIntId)}`);
+    //         result = result + this.stringUtil.getCharById(convertIntId);
+    //     });
+    //     return result;
+    // }
+    //
+    // _parseStringToIntArray(string) {
+    //     let intArray = [];
+    //     let stringArray = string.match(new RegExp(".{1,"+this.blockSize+"}", "g"));
+    //     stringArray.forEach(str => {
+    //         intArray.push(parseInt(str, 10))
+    //     });
+    //     return intArray;
+    // }
 
     convertInt(integer, power, modulo) {
         if(integer > this.n)

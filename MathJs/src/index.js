@@ -1,7 +1,7 @@
 const Rsa = require('./process/Rsa');
 
-const rsa = new Rsa(53, 97);
-const initialInput = 10;
+const rsa = new Rsa(43, 73);
+const initialInput = 1236;
 
 
 console.log("====================");
@@ -22,3 +22,8 @@ try {
 } catch(error) {
     console.log(error.message);
 }
+
+// let encryptedString = rsa.encrypt("AZERTY");
+// console.log(encryptedString);
+//
+// console.log(rsa.decrypt(encryptedString));
