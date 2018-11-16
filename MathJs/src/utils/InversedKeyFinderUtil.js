@@ -13,21 +13,21 @@ class InversedKeyFinder {
         if(pente === 1 && equationArray.length === 0) return pente;
         let resultat = Math.trunc(modulo / pente);
         let reste = MathUtil.modulo(modulo, pente);
-        let inverseReste = resultat * -1;
-        this._fillEquationArray(equationArray, reste, pente, modulo, inverseReste);
+        let inverseResultat = resultat * -1;
+        this._fillEquationArray(equationArray, reste, pente, modulo, inverseResultat);
         if (reste === 1) {
             return this._outExecution(equationArray);
         }
         return this.execute(reste, pente, equationArray);
     }
 
-    _fillEquationArray(equationArray, reste, pente, modulo, inverseReste) {
+    _fillEquationArray(equationArray, reste, pente, modulo, inverseResultat) {
         equationArray.unshift({
             reste: reste,
             pente: pente,
             modulo: modulo,
-            inverseReste: inverseReste,
-            stringEq: `${reste} = ${modulo} + ${pente} * ${inverseReste}`
+            inverseResultat: inverseResultat,
+            stringEq: `${reste} = ${modulo} + ${pente} * ${inverseResultat}`
         });
     }
 
@@ -36,7 +36,7 @@ class InversedKeyFinder {
         const originalEquationDatas = equationDatas;
         let quotientHolder = [];
         for (let i = equationArray.length - 1; i >= 0; i--) {
-            let currentMultiplicater = equationArray[i].inverseReste;
+            let currentMultiplicater = equationArray[i].inverseResultat;
             if(equationDatas.length > 1) {
                 equationDatas.forEach(equationData => {
                     quotientHolder = this._getQuotientsFromUpwardEquation(quotientHolder, equationArray, i, equationData);
@@ -62,7 +62,7 @@ class InversedKeyFinder {
                 reste: equationArray[i].reste,
                 quotients: []
             });
-            equationDatas[i].quotients.push(equationArray[i].inverseReste);
+            equationDatas[i].quotients.push(equationArray[i].inverseResultat);
             if (equationArray[i].modulo === this.originalPente) {
                 equationDatas[i].quotients.push(1);
             }
