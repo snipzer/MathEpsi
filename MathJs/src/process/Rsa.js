@@ -5,6 +5,7 @@ const PowerFunction = require('../functions/PowerFunction');
 
 class Rsa {
     constructor(p, q) {
+        this.blockSize = null;
         this.stringUtil = new StringUtil(true);
         if(!MathUtil.isPrime(p))
             throw new Error(`p must be a primed number`);
@@ -16,8 +17,6 @@ class Rsa {
         console.log("====================");
         console.log(`Modulo n equals : ${this.n}`);
         console.log("====================");
-        this.blockSize = this.n.toString().length - 1;
-        console.log(`Block size equal ${this.blockSize}`);
         this.m = (p-1)*(q-1);
         console.log("====================");
         console.log(`Finding m : (p-1)*(q-1) equals ${this.m}`);
@@ -27,83 +26,72 @@ class Rsa {
         this.powerDecrypter = new PowerFunction(this.d);
     }
 
-    convert(input, power, modulo) {
-        if(typeof input === 'string' || input instanceof String) {
-            return this.convertString(input, power, modulo);
-        } else {
-            return this.convertInt(parseInt(input, 10), power, modulo);
+    encrypt(string) {
+        let stringInt = this._stringToInt(string);
+        this._calculateBlockSize(stringInt);
+        let intArray = this.stringUtil.breakString(stringInt, this.blockSize);
+        let resultIntArray = [];
+        intArray.forEach(intString => {
+            resultIntArray.push(MathUtil.modpow(parseInt(intString, 10), this.e, this.n));
+        });
+        resultIntArray = this._adaptIntToBlockSize(resultIntArray);
+        return this.stringUtil.fusionArray(resultIntArray);
+    }
+
+    _stringToInt(string) {
+        let intString = '';
+        for(let index in string) {
+            let int = this.stringUtil.getIdByChar(string[index]);
+            intString = intString + int;
         }
+        return intString;
     }
 
-    convertString(inputString, power, modulo) {
-        if(this.n > this.stringUtil.alphabet.length)
-            throw new Error(`If n > ${this.stringUtil.alphabet.length}, undefined character may appear...`);
-        let outputString = "";
-        for(let index in inputString) {
-            let currentChar = inputString[index];
-            let convertCharId = this.executeModPow(this.stringUtil.getIdByChar(currentChar), power, modulo);
-            console.log(`CurrentChar ${currentChar} is ${this.stringUtil.getIdByChar(currentChar)} give ${convertCharId} so ${this.stringUtil.getCharById(convertCharId)}`);
-            outputString = outputString + this.stringUtil.getCharById(convertCharId);
+    _calculateBlockSize(initialString) {
+        this.blockSize = this._determineBlockSize(initialString, this.n.toString().length);
+        console.log(`Calculating block size... block size equal ${this.blockSize}`);
+    }
+
+    _determineBlockSize(initialString, nLength) {
+        let resultString = this.stringUtil.breakString(initialString, nLength);
+        for(let i = 0; i <= resultString.toString().length; i++) {
+            if(resultString[i] >= this.n) {
+                return this._determineBlockSize(initialString, nLength-1);
+            }
         }
-        return outputString;
-    }
-    // TODO work in progress
-    // encrypt(string) {
-    //     let intArray = [];
-    //     this._stringToIntArray(string).forEach((int) => {
-    //         intArray.push(this.executeModPow(int, this.e, this.n));
-    //     });
-    //     return this._adaptIntToBlockSize(intArray).toString().replace(/,/g, '');
-    // }
-    //
-    // _stringToIntArray(string) {
-    //     let intArray = [];
-    //     for(let index in string) {
-    //         let int = this.stringUtil.getIdByChar(string[index]);
-    //         intArray.push(int);
-    //     }
-    //     return intArray;
-    // }
-    //
-    // _adaptIntToBlockSize(intArray) {
-    //     for(let i = 0; i < intArray.length; i++) {
-    //         if(intArray[i].toString().length < this.blockSize) {
-    //             let zeroToAddQuantity = this.blockSize - intArray[i].toString().length;
-    //             for(let j = 0; j < zeroToAddQuantity; j++) {
-    //                 intArray[i] = "0" + intArray[i]
-    //             }
-    //         }
-    //     }
-    //     return intArray;
-    // }
-    //
-    // decrypt(string) {
-    //     let result = "";
-    //     this._parseStringToIntArray(string).forEach(int => {
-    //         let convertIntId = this.executeModPow(parseInt(int, 10), this.d, this.n);
-    //         console.log(`CurrentInt ${parseInt(int, 10)} give ${convertIntId} so ${this.stringUtil.getCharById(convertIntId)}`);
-    //         result = result + this.stringUtil.getCharById(convertIntId);
-    //     });
-    //     return result;
-    // }
-    //
-    // _parseStringToIntArray(string) {
-    //     let intArray = [];
-    //     let stringArray = string.match(new RegExp(".{1,"+this.blockSize+"}", "g"));
-    //     stringArray.forEach(str => {
-    //         intArray.push(parseInt(str, 10))
-    //     });
-    //     return intArray;
-    // }
-
-    convertInt(integer, power, modulo) {
-        if(integer > this.n)
-            throw new Error(`It can't work if the input ${integer} is > to ${this.n}`);
-        return this.executeModPow(integer, power, modulo);
+        return resultString[0].length;
     }
 
-    executeModPow(input, power, modulo) {
-        return MathUtil.modpow(input, power, modulo);
+    _adaptIntToBlockSize(intArray) {
+        for(let i = 0; i < intArray.length; i++) {
+            if(intArray[i].toString().length < this.n.toString().length) {
+                let zeroToAddQuantity = this.n.toString().length - intArray[i].toString().length;
+                for(let j = 0; j < zeroToAddQuantity; j++) {
+                    intArray[i] = "0" + intArray[i]
+                }
+            } else {
+                intArray[i] = "" + intArray[i];
+            }
+        }
+        return intArray;
+    }
+
+    decrypt(string) {
+        let intArray = this.stringUtil.breakString(string, this.n.toString().length);
+        let resultIntArray = [];
+        intArray.forEach(intString => {
+            resultIntArray.push(MathUtil.modpow(parseInt(intString), this.d, this.n));
+        });
+        resultIntArray = this.stringUtil.breakString(this.stringUtil.fusionArray(resultIntArray), 2);
+        return this._intToString(resultIntArray);
+    }
+
+    _intToString(resultIntArray) {
+        let result = '';
+        resultIntArray.forEach(int => {
+            result = result + this.stringUtil.getCharById(int);
+        });
+        return result;
     }
 
     _calculateE() {

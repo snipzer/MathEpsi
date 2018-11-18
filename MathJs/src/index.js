@@ -1,7 +1,7 @@
 const Rsa = require('./process/Rsa');
 
-const rsa = new Rsa(43, 73);
-const initialInput = 1236;
+const rsa = new Rsa(23, 97);
+const initialInput = "{message:HellowWorld}";
 
 
 console.log("====================");
@@ -15,15 +15,10 @@ console.log(`decrypterFunction : ${rsa.powerDecrypter.toString()} mod(${rsa.n})`
 console.log("====================");
 
 try {
-    const cryptedInput = rsa.convert(initialInput, rsa.e, rsa.n);
+    const cryptedInput = rsa.encrypt(initialInput);
     console.log(`Crypted input = ${cryptedInput}`);
-    const decryptedInput = rsa.convert(cryptedInput, rsa.d, rsa.n);
+    const decryptedInput = rsa.decrypt(cryptedInput);
     console.log(`Decrypted input = ${decryptedInput}`);
 } catch(error) {
     console.log(error.message);
 }
-
-// let encryptedString = rsa.encrypt("AZERTY");
-// console.log(encryptedString);
-//
-// console.log(rsa.decrypt(encryptedString));
