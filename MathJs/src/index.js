@@ -1,7 +1,7 @@
 const Rsa = require('./process/Rsa');
 
 const rsa = new Rsa(23, 97);
-const initialInput = "{message:HellowWorld}";
+const initialInput = "{message: Hellow World !}";
 
 
 console.log("====================");

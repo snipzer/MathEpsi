@@ -28,13 +28,12 @@ class Rsa {
 
     encrypt(string) {
         let stringInt = this._stringToInt(string);
-        this._calculateBlockSize(stringInt);
-        let intArray = this.stringUtil.breakString(stringInt, this.blockSize);
+        let intArray = this.stringUtil.breakString(stringInt, 2);
         let resultIntArray = [];
         intArray.forEach(intString => {
             resultIntArray.push(MathUtil.modpow(parseInt(intString, 10), this.e, this.n));
         });
-        resultIntArray = this._adaptIntToBlockSize(resultIntArray);
+        resultIntArray = this._adaptIntToBlockSize(resultIntArray, this.n.toString().length);
         return this.stringUtil.fusionArray(resultIntArray);
     }
 
@@ -42,30 +41,18 @@ class Rsa {
         let intString = '';
         for(let index in string) {
             let int = this.stringUtil.getIdByChar(string[index]);
+            if(int < 10) {
+                int = '0' + int;
+            }
             intString = intString + int;
         }
         return intString;
     }
 
-    _calculateBlockSize(initialString) {
-        this.blockSize = this._determineBlockSize(initialString, this.n.toString().length);
-        console.log(`Calculating block size... block size equal ${this.blockSize}`);
-    }
-
-    _determineBlockSize(initialString, nLength) {
-        let resultString = this.stringUtil.breakString(initialString, nLength);
-        for(let i = 0; i <= resultString.toString().length; i++) {
-            if(resultString[i] >= this.n) {
-                return this._determineBlockSize(initialString, nLength-1);
-            }
-        }
-        return resultString[0].length;
-    }
-
-    _adaptIntToBlockSize(intArray) {
+    _adaptIntToBlockSize(intArray, blockSize) {
         for(let i = 0; i < intArray.length; i++) {
-            if(intArray[i].toString().length < this.n.toString().length) {
-                let zeroToAddQuantity = this.n.toString().length - intArray[i].toString().length;
+            if(intArray[i].toString().length < blockSize) {
+                let zeroToAddQuantity = blockSize - intArray[i].toString().length;
                 for(let j = 0; j < zeroToAddQuantity; j++) {
                     intArray[i] = "0" + intArray[i]
                 }
@@ -82,6 +69,7 @@ class Rsa {
         intArray.forEach(intString => {
             resultIntArray.push(MathUtil.modpow(parseInt(intString), this.d, this.n));
         });
+        resultIntArray = this._adaptIntToBlockSize(resultIntArray, 2);
         resultIntArray = this.stringUtil.breakString(this.stringUtil.fusionArray(resultIntArray), 2);
         return this._intToString(resultIntArray);
     }
@@ -89,7 +77,7 @@ class Rsa {
     _intToString(resultIntArray) {
         let result = '';
         resultIntArray.forEach(int => {
-            result = result + this.stringUtil.getCharById(int);
+            result = result + this.stringUtil.getCharById(parseInt(int));
         });
         return result;
     }
