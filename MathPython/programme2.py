@@ -17,11 +17,11 @@ def execute_recurent(suite, initialTerm, rank):
     return initialTerm
 
 
-def is_arithmetique(suite, initialRank=0):
+def is_arithmetique(suite, initialRank, is_recurrent=0):
     value_holder = []
     i = 1
     while i <= 6:
-        if initialRank != 0:
+        if is_recurrent == 0:
             value_holder.append(int(execute_explicit(suite, i)))
         else:
             value_holder.append(int(execute_recurent(suite, initialRank, i)))
@@ -32,11 +32,11 @@ def is_arithmetique(suite, initialRank=0):
     return first_test == second_test == third_test
 
 
-def is_geometrique(suite, initialRank=0):
+def is_geometrique(suite, initialRank, is_recurrent=0):
     value_holder = []
     i = 1
     while i <= 6:
-        if initialRank != 0:
+        if is_recurrent == 0:
             value_holder.append(int(execute_explicit(suite, i)))
         else:
             value_holder.append(int(execute_recurent(suite, initialRank, i)))
@@ -50,21 +50,18 @@ def is_geometrique(suite, initialRank=0):
 firstChoice = int(input("Type 1 for an explicite or 2 for recurrent... => "))
 if firstChoice == 1:
     suite = input("Enter the expression of the function with 'x' as variable... => ")
-    if is_arithmetique(suite):
+    if is_arithmetique(suite, 0):
         print("Cette suite est arithmétique.")
-    elif is_geometrique(suite):
+    elif is_geometrique(suite, 0):
         print("Cette suite est géométrique.")
     else:
         print("Cette suite n'est ni arithmétique ni géométrique.")
 elif firstChoice == 2:
     suite = input("Enter the expression of the function with 'x' as variable... => ")
     initialTerm = int(input("Enter the value for U0... => "))
-    while initialTerm == 0:
-        print("InitialTerm cannot be equal to 0 ! \n")
-        initialTerm = int(input("Enter the value for U0... => "))
-    if is_arithmetique(suite, initialTerm):
+    if is_arithmetique(suite, initialTerm, 1):
         print("Cette suite est arithmétique.")
-    elif is_geometrique(suite, initialTerm):
+    elif is_geometrique(suite, initialTerm, 1):
         print("Cette suite est géométrique.")
     else:
         print("Cette suite n'est ni arithmétique ni géométrique.")
