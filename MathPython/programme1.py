@@ -14,7 +14,7 @@ def execute_recurent(suite, initialTerm, rank):
     while i < rank:
         initialTerm = sympy_suite.subs(x, initialTerm)
         i = i + 1
-    return initialT erm
+    return initialTerm
 
 
 firstChoice = int(input("Type 1 for an explicite or 2 for recurrent... => "))
