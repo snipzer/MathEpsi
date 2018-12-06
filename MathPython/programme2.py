@@ -59,6 +59,9 @@ if firstChoice == 1:
 elif firstChoice == 2:
     suite = input("Enter the expression of the function with 'x' as variable... => ")
     initialTerm = int(input("Enter the value for U0... => "))
+    while initialTerm == 0:
+        print("InitialTerm cannot be equal to 0 ! \n")
+        initialTerm = int(input("Enter the value for U0... => "))
     if is_arithmetique(suite, initialTerm):
         print("Cette suite est arithmétique.")
     elif is_geometrique(suite, initialTerm):
