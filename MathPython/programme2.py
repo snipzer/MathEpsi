@@ -17,11 +17,11 @@ def execute_recurent(suite, initialTerm, rank):
     return initialTerm
 
 
-def is_arithmetique(suite, initialRank=False):
+def is_arithmetique(suite, initialRank=0):
     value_holder = []
     i = 1
     while i <= 6:
-        if not initialRank:
+        if initialRank != 0:
             value_holder.append(int(execute_explicit(suite, i)))
         else:
             value_holder.append(int(execute_recurent(suite, initialRank, i)))
@@ -32,11 +32,11 @@ def is_arithmetique(suite, initialRank=False):
     return first_test == second_test == third_test
 
 
-def is_geometrique(suite, initialRank=False):
+def is_geometrique(suite, initialRank=0):
     value_holder = []
     i = 1
     while i <= 6:
-        if not initialRank:
+        if initialRank != 0:
             value_holder.append(int(execute_explicit(suite, i)))
         else:
             value_holder.append(int(execute_recurent(suite, initialRank, i)))
@@ -59,10 +59,9 @@ if firstChoice == 1:
 elif firstChoice == 2:
     suite = input("Enter the expression of the function with 'x' as variable... => ")
     initialTerm = int(input("Enter the value for U0... => "))
-    rank = int(input("Enter the rank for x... => "))
-    if is_arithmetique(suite, rank):
+    if is_arithmetique(suite, initialTerm):
         print("Cette suite est arithmétique.")
-    elif is_geometrique(suite, rank):
+    elif is_geometrique(suite, initialTerm):
         print("Cette suite est géométrique.")
     else:
         print("Cette suite n'est ni arithmétique ni géométrique.")
