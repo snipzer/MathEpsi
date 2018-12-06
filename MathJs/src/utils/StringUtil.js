@@ -25,6 +25,14 @@ class StringUtil {
         }
         return alphabet;
     }
+
+    breakString(str, length) {
+        return str.match(new RegExp('.{1,' + length + '}', 'g'));
+    }
+
+    fusionArray(array) {
+        return array.toString().replace(/,/g, '');
+    }
 }
 
 module.exports = StringUtil;
