@@ -1,11 +1,10 @@
 const MathUtil = require('../utils/MathUtil');
 const StringUtil = require('../utils/StringUtil');
-const InversedKeyFinder = require('../utils/InversedKeyFinderUtil');
+const ExtendedEuclidAlgorythm = require('./ExtendedEuclidAlgorythm');
 const PowerFunction = require('../functions/PowerFunction');
 
 class Rsa {
     constructor(p, q) {
-        this.blockSize = null;
         this.stringUtil = new StringUtil(true);
         if(!MathUtil.isPrime(p))
             throw new Error(`p must be a primed number`);
@@ -17,9 +16,9 @@ class Rsa {
         console.log("====================");
         console.log(`Modulo n equals : ${this.n}`);
         console.log("====================");
+        console.log(`Finding hidden modulo m : (p-1)*(q-1)`);
         this.m = (p-1)*(q-1);
-        console.log("====================");
-        console.log(`Finding m : (p-1)*(q-1) equals ${this.m}`);
+        console.log(`Hidden modulo m equals : ${this.m}`);
         this.e = this._calculateE();
         this.d = this._calculateD();
         this.powerCrypter = new PowerFunction(this.e);
@@ -101,7 +100,7 @@ class Rsa {
     _calculateD() {
         console.log("====================");
         console.log("Resolving d :");
-        let value = new InversedKeyFinder(this.e).execute(this.e, this.m);
+        let value = new ExtendedEuclidAlgorythm(this.e).execute(this.e, this.m);
         console.log(`Inverse of ${this.e} mod(${this.m}) equals : ${value}`);
         if(value > this.m) {
             value = MathUtil.getInfOfModulo(value, this.m);

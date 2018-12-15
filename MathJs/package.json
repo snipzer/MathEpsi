@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
+    "euclid": "node src/executions/extendedEuclidExec.js",
     "affineCrypter": "node src/executions/affineCrypterExec.js",
     "chineseRemainder": "node src/executions/chineseRemainderExec.js",
     "rsa": "node src/executions/rsaExec.js"

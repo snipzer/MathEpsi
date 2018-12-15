@@ -53,13 +53,6 @@ class MathUtil {
         const product = Math.trunc(quotient * modulo);
         return number - product;
     }
-
-    static constructInverseEq(inversedKey, affFunction, modulo) {
-        inversedKey = (inversedKey > 0)? inversedKey : MathUtil.getPosOfModulo(inversedKey, modulo);
-        let newIntercept = affFunction.intercept * -1 * inversedKey;
-        newIntercept = (newIntercept > 0)? newIntercept : MathUtil.getPosOfModulo(newIntercept, modulo);
-        return new AffFunction(inversedKey, newIntercept);
-    }
 }
 
 module.exports = MathUtil;

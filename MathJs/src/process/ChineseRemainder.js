@@ -1,5 +1,5 @@
 const MathUtil = require('../utils/MathUtil');
-const InversedKeyFinder = require('../utils/InversedKeyFinderUtil');
+const ExtendedEuclidAlgorythm = require('./ExtendedEuclidAlgorythm');
 
 class ChineseRemainder {
     constructor(equations) {
@@ -35,7 +35,7 @@ class ChineseRemainder {
         if(mValue < 0) {
             mValue = MathUtil.getPosOfModulo(equation.Mvalue, equation.modulo);
         }
-        equation.Yvalue = new InversedKeyFinder(mValue).execute(mValue, equation.modulo);
+        equation.Yvalue = new ExtendedEuclidAlgorythm(mValue).execute(mValue, equation.modulo);
     }
 
     _calculateResultat() {
