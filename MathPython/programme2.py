@@ -7,24 +7,24 @@ def execute_explicit(suite, rank):
     return sympy_suite.subs(x, rank)
 
 
-def execute_recurent(suite, initialTerm, rank):
+def execute_recurent(suite, initial_term, rank):
     x = var('x')
     sympy_suite = sympify(suite)
     i = 0
     while i < rank:
-        initialTerm = sympy_suite.subs(x, initialTerm)
+        initial_term = sympy_suite.subs(x, initial_term)
         i = i + 1
-    return initialTerm
+    return initial_term
 
 
-def is_arithmetique(suite, initialRank, is_recurrent=0):
+def is_arithmetique(suite, initial_term, is_recurrent=0):
     value_holder = []
     i = 1
     while i <= 6:
         if is_recurrent == 0:
             value_holder.append(int(execute_explicit(suite, i)))
         else:
-            value_holder.append(int(execute_recurent(suite, initialRank, i)))
+            value_holder.append(int(execute_recurent(suite, initial_term, i)))
         i = i + 1
     first_test = abs(value_holder[0] - value_holder[1])
     second_test = abs(value_holder[2] - value_holder[3])
@@ -32,14 +32,14 @@ def is_arithmetique(suite, initialRank, is_recurrent=0):
     return first_test == second_test == third_test
 
 
-def is_geometrique(suite, initialRank, is_recurrent=0):
+def is_geometrique(suite, initial_term, is_recurrent=0):
     value_holder = []
     i = 1
     while i <= 6:
         if is_recurrent == 0:
             value_holder.append(int(execute_explicit(suite, i)))
         else:
-            value_holder.append(int(execute_recurent(suite, initialRank, i)))
+            value_holder.append(int(execute_recurent(suite, initial_term, i)))
         i = i + 1
     first_test = value_holder[1] / value_holder[0]
     second_test = value_holder[3] / value_holder[2]
@@ -47,7 +47,7 @@ def is_geometrique(suite, initialRank, is_recurrent=0):
     return first_test == second_test == third_test
 
 
-firstChoice = int(input("Type 1 for an explicite or 2 for recurrent... => "))
+firstChoice = int(input("Type 1 for an explicit or 2 for recurrent... => "))
 if firstChoice == 1:
     suite = input("Enter the expression of the function with 'x' as variable... => ")
     if is_arithmetique(suite, 0):
