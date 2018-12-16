@@ -5,11 +5,11 @@ from sympy.abc import x
 def is_limit(suite):
     res = limit_seq(suite, x)
     if res == oo or res == -oo:
-        return "Suite divergente"
+        return "La suite possède comme limite %s, elle est donc divergente." % res
     elif res is None:
-        return "Pas de limite"
+        return "La suite ne possède pas de limite."
     elif res.is_real:
-        return "Suite convergente"
+        return "La suite possède comme limite %s, elle est donc convergente." % res
     else:
         return "Il semble y avoir un cas particulier non prévue..."
 
