@@ -1,11 +1,11 @@
-const AffFunction = require('../functions/AffFunction');
-
 class MathUtil {
     constructor() {
         throw new Error('Don\'t instanciate an util class !');
     }
 
     static isNumbersPrimed(a, b) {
+        a = parseInt(a);
+        b = parseInt(b);
         if (b) {
             return MathUtil.isNumbersPrimed(b, a % b);
         } else {
@@ -13,13 +13,16 @@ class MathUtil {
         }
     }
 
-    static isPrime(num) {
-        for(let i = 2; i < num; i++)
-            if(num % i === 0) return false;
-        return num !== 1 && num !== 0;
+    static isPrime(number) {
+        number = parseInt(number);
+        for(let i = 2; i < number; i++)
+            if(number % i === 0) return false;
+        return number !== 1 && number !== 0;
     }
 
     static power(number, power) {
+        number = parseInt(number);
+        power = parseInt(number);
         for(let i = 1; i < power; i++) {
             number = number + number;
         }
@@ -28,6 +31,7 @@ class MathUtil {
 
     static modpow(number, exp, m) {
         let result = 1;
+        number = parseInt(number);
         while (exp > 0) {
             if ((exp & 1) > 0) result = (result * number) % m;
             exp >>= 1;
@@ -37,7 +41,7 @@ class MathUtil {
     }
 
     static getPosOfModulo(number, modulo) {
-        number = number + modulo;
+        number = parseInt(number) + parseInt(modulo);
         if(number >= 0) {
             return number;
         }
@@ -45,10 +49,14 @@ class MathUtil {
     }
 
     static getInfOfModulo(number, modulo) {
+        number = parseInt(number);
+        modulo =  parseInt(modulo);
         return number%modulo;
     }
 
     static modulo(number, modulo) {
+        number = parseInt(number);
+        modulo = parseInt(modulo);
         const quotient = Math.trunc(number / modulo);
         const product = Math.trunc(quotient * modulo);
         return number - product;

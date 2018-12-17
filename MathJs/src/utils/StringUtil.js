@@ -9,6 +9,7 @@ class StringUtil {
     }
 
     getCharById(id) {
+        id = parseInt(id);
         if(id < 0 && id > this.alphabet.length-1) throw new Error(`Error, parameter must be an integer beetween 0 and ${this.alphabet.length-1}`);
         return this.alphabet[id];
     };

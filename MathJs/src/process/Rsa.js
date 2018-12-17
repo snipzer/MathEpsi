@@ -5,6 +5,8 @@ const PowerFunction = require('../functions/PowerFunction');
 
 class Rsa {
     constructor(p, q) {
+        p = parseInt(p);
+        q = parseInt(q);
         this.stringUtil = new StringUtil(true);
         if(!MathUtil.isPrime(p))
             throw new Error(`p must be a primed number`);

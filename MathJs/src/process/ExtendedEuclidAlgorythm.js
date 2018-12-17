@@ -8,6 +8,8 @@ class ExtendedEuclidAlgorythm {
     execute(pente, modulo, equationArray) {
         equationArray = equationArray || [];
         if(equationArray.length === 0) {
+            pente = parseInt(pente);
+            modulo = parseInt(modulo);
             if(!MathUtil.isNumbersPrimed(pente, modulo)) throw new Error(`Pente(${pente}) and modulo(${modulo}) aren't primed !`);
         }
         if(pente === 1 && equationArray.length === 0) return pente;

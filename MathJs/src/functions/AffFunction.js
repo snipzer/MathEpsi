@@ -1,11 +1,11 @@
 class AffFunction {
     constructor(slope, intercept) {
-        this.slope = slope;
-        this.intercept = intercept;
+        this.slope = parseInt(slope);
+        this.intercept = parseInt(intercept);
     }
 
     execute(input) {
-        return this.slope * input + this.intercept;
+        return this.slope * parseInt(input) + this.intercept;
     }
 
     toString() {

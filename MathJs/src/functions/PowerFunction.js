@@ -2,11 +2,11 @@ const MathUtil = require('../utils/MathUtil');
 
 class PowerFunction {
     constructor(power) {
-        this.power = power;
+        this.power = parseInt(power);
     }
 
     execute(input) {
-        return MathUtil.power(input, this.power);
+        return MathUtil.power(parseInt(input), this.power);
     }
 
     toString() {

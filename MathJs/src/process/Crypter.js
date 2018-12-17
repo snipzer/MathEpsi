@@ -5,15 +5,17 @@ const ExtendedEuclidAlgorythm = require('./ExtendedEuclidAlgorythm');
 
 class Crypter {
     constructor(slope, intercept, modulo) {
-        this.modulo = modulo;
-        intercept = (intercept > 0) ? intercept : MathUtil.getPosOfModulo(intercept, modulo);
+        this.modulo = parseInt(modulo);
+        intercept = parseInt(intercept);
+        slope = parseInt(slope);
+        intercept = (intercept > 0) ? intercept : MathUtil.getPosOfModulo(intercept, this.modulo);
         this.affinneCrypter = new AffFunction(slope, intercept);
-        this.affinneDecrypter = this.constructInverseEq(new ExtendedEuclidAlgorythm(slope).execute(slope, modulo), this.affinneCrypter, modulo);
+        this.affinneDecrypter = this.constructInverseEq(new ExtendedEuclidAlgorythm(slope).execute(slope, this.modulo), this.affinneCrypter, this.modulo);
         this.stringUtil = new StringUtil();
     }
 
     execute(input, affineFunction) {
-        return affineFunction.execute(input) % this.modulo;
+        return affineFunction.execute(parseInt(input)) % this.modulo;
     }
 
     convert(inputString, affineFunction) {
