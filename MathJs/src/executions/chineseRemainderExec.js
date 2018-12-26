@@ -21,24 +21,24 @@ const askEquationNumber = () => {
     return new Promise(resolve => {
         rl.question('How many equation ? ', (question) => {
             resolve(question);
-        })
-    })
+        });
+    });
 };
 
 const getSlope = () => {
     return new Promise(resolve => {
         rl.question('Choose the slope : ', (slope) => {
             resolve(slope)
-        })
-    })
+        });
+    });
 };
 
 const getModulo = () => {
     return new Promise(resolve => {
         rl.question('Choose the modulo : ', (modulo) => {
             resolve(modulo)
-        })
-    })
+        });
+    });
 };
 
 const main = async () => {
@@ -52,7 +52,7 @@ const main = async () => {
     }
     const chineseRemainder = new ChineseRemainder(equationArray);
     console.log(chineseRemainder.execute());
-    rl.close()
+    rl.close();
 };
 
 main();
