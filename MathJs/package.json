@@ -10,9 +10,10 @@
     "chineseRemainder": "node src/executions/chineseRemainderExec.js",
     "rsa": "node src/executions/rsaExec.js"
   },
-  "author": "",
+  "author": "Snipzer",
   "license": "ISC",
   "dependencies": {
+    "big-integer": "^1.6.40",
     "readline": "^1.3.0"
   }
 }

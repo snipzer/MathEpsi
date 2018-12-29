@@ -25,9 +25,13 @@ rl.question('Choose the first primed number ? ', (p) => {
                 console.log(`encypterFunction : ${rsa.powerCrypter.toString()} mod(${rsa.n})`);
                 console.log(`decrypterFunction : ${rsa.powerDecrypter.toString()} mod(${rsa.n})`);
                 console.log("====================");
+                console.time('encryption time ');
                 const cryptedInput = rsa.encrypt(initialInput);
+                console.timeEnd('encryption time ');
                 console.log(`Crypted input = ${cryptedInput}`);
+                console.time('decryption time ');
                 const decryptedInput = rsa.decrypt(cryptedInput);
+                console.timeEnd('decryption time ');
                 console.log(`Decrypted input = ${decryptedInput}`);
             } catch(error) {
                 console.log(error.message);

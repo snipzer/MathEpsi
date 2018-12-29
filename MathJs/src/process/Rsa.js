@@ -1,5 +1,5 @@
 const MathUtil = require('../utils/MathUtil');
-const StringUtil = require('../utils/StringUtil');
+const StringUtil = require('../services/StringService');
 const ExtendedEuclidAlgorythm = require('./ExtendedEuclidAlgorythm');
 const PowerFunction = require('../functions/PowerFunction');
 
@@ -29,9 +29,9 @@ class Rsa {
 
     encrypt(string) {
         let stringInt = this._stringToInt(string);
-        let intArray = this.stringUtil.breakString(stringInt, 2);
+        let intStringArray = this.stringUtil.breakString(stringInt, 2);
         let resultIntArray = [];
-        intArray.forEach(intString => {
+        intStringArray.forEach(intString => {
             resultIntArray.push(MathUtil.modpow(parseInt(intString, 10), this.e, this.n));
         });
         resultIntArray = this._adaptIntToBlockSize(resultIntArray, this.n.toString().length);
@@ -70,7 +70,7 @@ class Rsa {
         intArray.forEach(intString => {
             resultIntArray.push(MathUtil.modpow(parseInt(intString), this.d, this.n));
         });
-        resultIntArray = this._adaptIntToBlockSize(resultIntArray, 2);
+        resultIntArray = this._adaptIntToBlockSize(resultIntArray, this.n.length);
         resultIntArray = this.stringUtil.breakString(this.stringUtil.fusionArray(resultIntArray), 2);
         return this._intToString(resultIntArray);
     }

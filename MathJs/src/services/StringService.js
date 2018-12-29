@@ -1,4 +1,4 @@
-class StringUtil {
+class StringService {
     constructor(isExtendedAlphabet) {
         isExtendedAlphabet = isExtendedAlphabet || false;
         if(isExtendedAlphabet) {
@@ -36,4 +36,4 @@ class StringUtil {
     }
 }
 
-module.exports = StringUtil;
+module.exports = StringService;

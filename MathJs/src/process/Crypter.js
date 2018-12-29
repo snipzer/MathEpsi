@@ -1,6 +1,6 @@
 const MathUtil = require('../utils/MathUtil');
 const AffFunction = require('../functions/AffFunction');
-const StringUtil = require('../utils/StringUtil');
+const StringUtil = require('../services/StringService');
 const ExtendedEuclidAlgorythm = require('./ExtendedEuclidAlgorythm');
 
 class Crypter {

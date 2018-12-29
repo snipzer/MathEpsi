@@ -1,3 +1,5 @@
+const BigInt = require('big-integer');
+
 class MathUtil {
     constructor() {
         throw new Error('Don\'t instanciate an util class !');
@@ -30,15 +32,20 @@ class MathUtil {
     }
 
     static modpow(number, exp, m) {
-        let result = 1;
-        number = parseInt(number);
-        while (exp > 0) {
-            if ((exp & 1) > 0) result = (result * number) % m;
-            exp >>= 1;
-            number = (number * number) % m;
-        }
-        return result;
+        return BigInt(number).modPow(exp, m);
     }
+
+    // TODO Non fonctionnel avec les grands nombres premiers (exemple: 21313, 21317)
+    // static modpow(number, exp, m) {
+    //     let result = 1;
+    //     number = parseInt(number);
+    //     while (exp > 0) {
+    //         if ((exp & 1) > 0) result = (result * number) % m;
+    //         exp >>= 1;
+    //         number = (number * number) % m;
+    //     }
+    //     return result;
+    // }
 
     static getPosOfModulo(number, modulo) {
         number = parseInt(number) + parseInt(modulo);
