@@ -8,7 +8,8 @@
     "euclid": "node src/executions/extendedEuclidExec.js",
     "affineCrypter": "node src/executions/affineCrypterExec.js",
     "chineseRemainder": "node src/executions/chineseRemainderExec.js",
-    "rsa": "node src/executions/rsaExec.js"
+    "rsa": "node src/executions/rsaExec.js",
+    "dijktra": "node src/executions/dijktraExec.js"
   },
   "author": "Snipzer",
   "license": "ISC",
