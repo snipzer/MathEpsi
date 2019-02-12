@@ -46,10 +46,9 @@ class Dijktra {
             optimalPath.push(parent);
             parent = this.parents[parent];
         }
-        optimalPath.reverse();  // reverse array to get correct order
         return {
             distance: this.costs.finish,
-            path: optimalPath
+            path: optimalPath.reverse()
         };
     }
 
