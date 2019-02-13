@@ -16,7 +16,7 @@ def execute_recurent(suite, rang, initial_term):
     return initial_term
 
 
-def is_monotone(suite, initial_term, is_recurent=0):
+def is_monotone(suite, initial_term=0, is_recurent=0):
     value_holder = []
     i = 0
     while i <= 5:
