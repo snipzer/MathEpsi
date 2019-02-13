@@ -3,15 +3,15 @@ from sympy import *
 
 def execute_explicit(suite, rang):
     x = var("x")
-    resultat = suite.subs(x, rang)
-    return resultat
+    return sympify(suite).subs(x, rang)
 
 
 def execute_recurent(suite, rang, initial_term):
     x = var("x")
     i = 0
+    sympify_suite = sympify(suite)
     while i < rang:
-        initial_term = suite.subs(x, initial_term)
+        initial_term = sympify_suite.subs(x, initial_term)
         i = i + 1
     return initial_term
 
@@ -32,7 +32,7 @@ def analyse_resultat(value_holder):
     first_test = value_holder[1] - value_holder[0]
     second_test = value_holder[3] - value_holder[2]
     third_test = value_holder[5] - value_holder[4]
-    if first_test == second_test == third_test == 0:
+    if first_test == second_test == third_test:
         return "La suite est constante"
     elif first_test > 0 and second_test > 0 and third_test > 0:
         return "La suite est croissante et monotone"
