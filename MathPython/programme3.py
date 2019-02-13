@@ -18,7 +18,7 @@ def execute_recurent(suite, initial_term, rank):
     return initial_term
 
 
-def create_graph(suite, initial_term, is_recurent=0):
+def create_graph(suite, initial_term=false, is_recurent=0):
     value_holder = []
     i = 1
     while i < 200:
