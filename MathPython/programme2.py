@@ -23,6 +23,7 @@ def is_arithmetique(suite, initial_term, is_recurrent=0):
     while i <= 6:
         if is_recurrent == 0:
             value_holder.append(int(execute_explicit(suite, i)))
+            print(value_holder)
         else:
             value_holder.append(int(execute_recurent(suite, initial_term, i)))
         i = i + 1
